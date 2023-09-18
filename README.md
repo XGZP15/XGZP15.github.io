@@ -1,1 +1,1 @@
-# XGZP15.github.io
+https://www.stumbleguys.com/play
