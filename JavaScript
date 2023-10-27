@@ -1,0 +1,8 @@
+	$(document).ready(function() {
+    var score = 0;
+ 
+    $('#game').click(function() {
+        score++;
+        $(this).text(score);
+    });
+});
