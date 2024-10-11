@@ -1,56 +1,39 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Fun Game</title>
-    <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    <!-- Custom CSS -->
-    <style>
-        body {
-            font-family: Arial, sans-serif;
+document.addEventListener("DOMContentLoaded", function() {
+    const addTaskButton = document.getElementById("addTaskButton");
+    const taskInput = document.getElementById("taskInput");
+    const taskList = document.getElementById("taskList");
+
+    addTaskButton.addEventListener("click", function() {
+        const taskText = taskInput.value.trim();
+        
+        if (taskText === "") {
+            alert("Please enter a task.");
+            return;
         }
 
-        #game-container {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-        }
+        const li = document.createElement("li");
+        li.textContent = taskText;
+        
+        const deleteButton = document.createElement("button");
+        deleteButton.textContent = "Delete";
+        deleteButton.classList.add("delete-button");
 
-        #game {
-            width: 300px;
-            height: 300px;
-            border: 2px solid #000;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            font-size: 24px;
-            font-weight: bold;
-            cursor: pointer;
-        }
-    </style>
-</head>
-<body>
-    <!-- Game Container -->
-    <div id="game-container">
-        <div id="game">Click Me!</div>
-    </div>
-
-    <!-- Bootstrap & jQuery JS -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-    <!-- Custom JS -->
-    <script>
-        $(document).ready(function() {
-            var score = 0;
-
-            $('#game').click(function() {
-                score++;
-                $(this).text(score);
-            });
+        deleteButton.addEventListener("click", function() {
+            taskList.removeChild(li);
         });
-    </script>
-</body>
-</html>
+
+        li.appendChild(deleteButton);
+        li.addEventListener("click", function() {
+            li.classList.toggle("completed");
+        });
+
+        taskList.appendChild(li);
+        taskInput.value = ""; // Clear the input field
+    });
+
+    taskInput.addEventListener("keypress", function(event) {
+        if (event.key === "Enter") {
+            addTaskButton.click(); // Trigger the click event of the Add Task button
+        }
+    });
+});
